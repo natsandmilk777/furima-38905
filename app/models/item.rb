@@ -1,7 +1,7 @@
-class Item < ApplicationRecord
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :user
-  has_one :order
+#class Item < ApplicationRecord
+  #extend ActiveHash::Associations::ActiveRecordExtensions
+  #belongs_to :user
+  #has_one :order
   has_one_attached :image
   belongs_to_active_hash :category
   belongs_to_active_hash :sales_status
@@ -16,8 +16,8 @@ class Item < ApplicationRecord
       validates :category_id, :sales_status_id, :shipping_fee_status_id, :prefecture_id, :scheduled_delivery_id
     end
 
-    with_options format: { with: /\A[0-9]+\z/ } do
-      validates :price, numericality: { greater_than: 300, less_than: 9999999 } 
+    with_options only_integer:true
+      validates :price, numericality: { greater_than_or_total_to: 300, less_than_or_equal_to: 9999999 } 
     end
   end
 end
