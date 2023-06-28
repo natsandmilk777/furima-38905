@@ -15,9 +15,8 @@ class Item < ApplicationRecord
     with_options numericality: { other_than: 1 } do
       validates :category_id, :sales_status_id, :shipping_fee_status_id, :prefecture_id, :scheduled_delivery_id
     end
-
-    
-    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 301, less_than_or_equal_to: 9999998 } 
-    
   end
+    
+    validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 301, less_than_or_equal_to: 10000000 } 
+    
 end
