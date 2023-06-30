@@ -29,29 +29,29 @@ describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Text can't be blank")
       end
         it 'category_idが空では登録されない' do
-        @item.category_id = nil
+        @item.category_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category can't be blank")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
         it 'sales_status_idが空では登録されない' do
-        @item.sales_status_id = nil
+        @item.sales_status_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Sales status can't be blank")
+        expect(@item.errors.full_messages).to include("Sales status must be other than 1")
       end
         it 'shipping_fee_status_idが空では登録されない' do
-        @item.shipping_fee_status_id = nil
+        @item.shipping_fee_status_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping fee status can't be blank")
+        expect(@item.errors.full_messages).to include("Shipping fee status must be other than 1")
       end
       it 'prefecture_idが空では登録されない' do
-        @item.prefecture_id = nil
+        @item.prefecture_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture can't be blank")
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
       it 'scheduled_delivery_idが空では登録されない' do
-        @item.scheduled_delivery_id = nil
+        @item.scheduled_delivery_id = 1
         @item.valid?
-        expect(@item.errors.full_messages).to include("Scheduled delivery can't be blank")
+        expect(@item.errors.full_messages).to include("Scheduled delivery must be other than 1")
       end
       
       it 'priceが空では登録されない' do
@@ -67,12 +67,12 @@ describe Item, type: :model do
       it 'priceが300より少ないと登録できない' do
         @item.price = 299
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 301")
+        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
       end
       it 'priceが9999999より多いと登録できない' do
-        @item.price = 10000001
+        @item.price = 10000000
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than or equal to 10000000")
+        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
       end
       it "userが紐付いていなければ出品できない" do
         @item.user = nil
