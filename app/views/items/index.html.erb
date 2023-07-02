@@ -127,20 +127,20 @@
       新規投稿商品
     </div>
     <ul class='item-lists'>
-      <%# 商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
       <% unless @items == nil %>
         <% @items.each do |item| %>
           <li class='list'>
-            <%= link_to item_path(item.id) do %>
+            <%#= link_to item_path(item.id) do %>
+            <%= link_to "#" do %>
               <div class='item-img-content'>
                 <%= image_tag item.image, class: "item-img" %>
-                <%# 商品が売れていればsold outを表示しましょう %>
+
                 <% if @items.empty? %>
                   <div class='sold-out'>
                     <span>Sold Out!!</span>
                   </div>
                 <% end %>
-                <%# //商品が売れていればsold outを表示しましょう %>
+
               </div>
               <div class='item-info'>
                 <h3 class='item-name'>
@@ -148,11 +148,7 @@
                 </h3>
                 <div class='item-price'>
                   <span><%= item.price %>円<br>
-                    <% if item.shipping_fee_status_id == 2 %>
-                      着払い（購入者負担）
-                    <% elsif item.shipping_fee_status_id == 3 %>
-                      送料込み（出品者負担）
-                    <% end %>
+                    <%= ShippingFeeStatus.find(item.shipping_fee_status_id).name %>
                   </span>
                   <div class='star-btn'>
                     <%= image_tag "star.png", class:"star-icon" %>
@@ -165,7 +161,7 @@
           </li>
       <% end %> 
       <% if @items.empty? %>
-      <%# 商品がない場合は以下のダミー商品が表示されるようにしましょう %>
+      
       <li class='list'>
         <%= link_to '#' do %>
           <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
@@ -185,7 +181,7 @@
       <% end %>
       </li>
     <% end %>
-      <%# //商品がない場合は以下のダミー商品が表示されるようにしましょう %>
+    
     </ul>
   </div>
   <%# /商品一覧 %>
