@@ -18,7 +18,7 @@
     </div>
     <div class="item-price-box">
       <span class="item-price">
-        <%= @item.price %>
+        ¥<%= @item.price %>
       </span>
       <span class="item-postage">
         <%= ShippingFeeStatus.find_by(id: @item.shipping_fee_status_id)&.name %>
