@@ -146,7 +146,7 @@
                   <%= item.title %>
                 </h3>
                 <div class='item-price'>
-                  <span><%= item.price %>円<br>
+                  <span>¥<%= item.price %>円<br>
                     <%= ShippingFeeStatus.find(item.shipping_fee_status_id).name %>
                   </span>
                   <div class='star-btn'>
@@ -154,7 +154,7 @@
                     <span class='star-count'>0</span>
                   </div>
                 </div>
-                <input id='item-price' type='number'>
+
               </div>
         <% end %>
           </li>
