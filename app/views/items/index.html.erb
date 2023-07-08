@@ -130,8 +130,7 @@
       <% unless @items == nil %>
         <% @items.each do |item| %>
           <li class='list'>
-            <%#= link_to item_path(item.id) do %>
-            <%= link_to "#" do %>
+            <%= link_to item_path(item.id) do %>
               <div class='item-img-content'>
                 <%= image_tag item.image, class: "item-img" %>
 
@@ -147,7 +146,7 @@
                   <%= item.title %>
                 </h3>
                 <div class='item-price'>
-                  <span><%= item.price %>円<br>
+                  <span>¥<%= item.price %>円<br>
                     <%= ShippingFeeStatus.find(item.shipping_fee_status_id).name %>
                   </span>
                   <div class='star-btn'>
@@ -155,7 +154,7 @@
                     <span class='star-count'>0</span>
                   </div>
                 </div>
-                <input id='item-price' type='number'>
+
               </div>
         <% end %>
           </li>
