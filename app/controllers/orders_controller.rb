@@ -21,4 +21,15 @@ class OrdersController < ApplicationController
       render action: :index
     end
   end
+
+  private
+
+  def set_item
+    @item = Item.find(params[:item_id])
+  end
+
+  def order_params
+    params.require(:item_order).permit(:postal_code, :prefecture_id, :city_name, :block_name, :building_name, :phone_number).merge(token: params[:token], item_id: params[:item_id], user_id: current_user.id )
+  end
+
 end
