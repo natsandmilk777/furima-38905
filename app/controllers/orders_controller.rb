@@ -18,7 +18,7 @@ class OrdersController < ApplicationController
       pay_item
       return redirect_to root_path
     else
-      render 'index'
+      render action: :index
     end
   end
 
@@ -29,7 +29,7 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:item_order).permit(:postal_code, :prefecture_id, :city_name, :block_name, :building_name, :phone_number, :price).merge(token: params[:token])
+    params.require(:item_order).permit(:postal_code, :prefecture_id, :city_name, :block_name, :building_name, :phone_number, :price).merge(token: params[:token], item_id: params[:item_id], user_id: current_user.id )
   end
 
   def pay_item

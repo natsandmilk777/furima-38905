@@ -126,6 +126,7 @@
     <div class="subtitle" >
       新規投稿商品
     </div>
+    
     <ul class='item-lists'>
       <% unless @items == nil %>
         <% @items.each do |item| %>
@@ -134,7 +135,7 @@
               <div class='item-img-content'>
                 <%= image_tag item.image, class: "item-img" %>
 
-                <% if @items.empty? %>
+                <% if item.order !=nil %>
                   <div class='sold-out'>
                     <span>Sold Out!!</span>
                   </div>
