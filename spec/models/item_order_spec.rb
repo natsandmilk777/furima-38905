@@ -27,7 +27,7 @@ RSpec.describe ItemOrder, type: :model do
       it '郵便番号が空だと購入ができない' do
         @item_order.postal_code = ""
         @item_order.valid?
-        expect(@item_order.errors.messages).to include("Postal_code can't be blank")
+        expect(@item_order.errors.messages).to include({:postal_code => ["can't be blank", "is invalid", "is the wrong length (should be 8 characters)"]})
       end
       it '郵便番号にハイフンがないと登録できない' do
         @item_order.postal_code = "12345678"
