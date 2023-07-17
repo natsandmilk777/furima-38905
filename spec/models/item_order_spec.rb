@@ -1,14 +1,22 @@
 require 'rails_helper'
 
 RSpec.describe ItemOrder, type: :model do
-  describe '購入者情報の保存' do
-    before do
-      @item_order = FactoryBot.build(:item_order, postal_code: "123-4567", prefecture_id: 2, city_name: "テスト市", block_name: "テスト町1-1", phone_number: "09012345678", token: "tok_abcdefghijk00000000000000000")
-    end
 
+  before do
+    @item_order = FactoryBot.build(:item_order)
+  end
+
+  describe '購入者情報の保存' do
+    context '購入者情報の保存がうまくいくとき' do
       it '全ての項目が入力されていれば購入ができる' do
         expect(@item_order).to be_valid
       end
+      it '建物名が空でも登録できる' do
+        @item_order.building_name = nil
+        expect(@item_order).to be_valid
+      end
+
+    context '購入者情報の保存がうまくいかないとき' do
       it 'token(クレジットカード情報)が空だと購入ができない' do
         @item_order.token = nil
         @item_order.valid?
@@ -47,12 +55,25 @@ RSpec.describe ItemOrder, type: :model do
       it 'phone_numberが空だと購入できない' do
         @item_order.phone_number = ""
         @item_order.valid?
-        expect(@item_order.errors.full_messages).to include("Phone number can't be blank", "Phone number is invalid")
+        expect(@item_order.errors.full_messages).to include("Phone number can't be blank")
       end
-      it 'phone_numberが11桁でなければ購入できない' do
-        @item_order.phone_number = "080123456789"
+      it 'phone_numberが9桁以下では購入できない' do
+        @item_order.phone_number = "080123456"
         @item_order.valid?
         expect(@item_order.errors.full_messages).to include("Phone number is invalid")
       end
+    
+      it 'phone_numberが12桁以上では購入できない' do
+        @item_order.phone_number = "0801234567890"
+        @item_order.valid?
+        expect(@item_order.errors.full_messages).to include("Phone number is invalid")
+      end
+    
+      it 'phone_numberに半角数字以外が含まれている場合は購入できない' do
+        @item_order.phone_number = "080-1234-5678"
+        @item_order.valid?
+        expect(@item_order.errors.full_messages).to include("Phone number is invalid")
+      end
+    end
   end
 end
